@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Admin - Dinu Gift Hub</title>
+<style>body{margin:0;font-family:sans-serif;background:#111;color:#fff;text-align:center;padding:30px 15px} input,textarea{width:90%;max-width:400px;padding:12px;margin:8px;border-radius:10px;border:none} button{background:#ff4d6d;color:#fff;border:none;padding:14px 30px;border-radius:30px;font-weight:bold} .card{background:#222;padding:15px;border-radius:15px;margin:15px auto;max-width:400px;text-align:left}</style></head>
+<body><h2>🔐 ADMIN PORTAL</h2><p>Dinu Gift Hub</p>
+<input id="p" type="password" placeholder="Enter Admin Password"><br><button onclick="login()">LOGIN</button>
+<div id="panel" style="display:none">
+<h3>Add New Gift</h3>
+<input id="t" placeholder="Gift Name"><br><input id="pr" placeholder="Price - Rs."><br><input id="img" placeholder="Image Link"><br><textarea id="d" placeholder="Description"></textarea><br><button onclick="add()">ADD GIFT ✅</button>
+<div id="list"></div>
+</div>
+<script>
+let gifts=JSON.parse(localStorage.getItem('gifts')||'[]');
+function login(){if(document.getElementById('p').value==='dinu123'){document.getElementById('panel').style.display='block';alert('Welcome Dilshan!')}else{alert('Wrong Password!')}}
+function add(){let g={t:document.getElementById('t').value,pr:document.getElementById('pr').value,img:document.getElementById('img').value,d:document.getElementById('d').value};gifts.push(g);localStorage.setItem('gifts',JSON.stringify(gifts));show();alert('Gift Added!')}
+function show(){document.getElementById('list').innerHTML=gifts.map((g,i)=>`<div class="card"><b>${g.t}</b><br>Rs.${g.pr}<br>${g.d}<br><button onclick="del(${i})">Delete</button></div>`).join('')}
+function del(i){gifts.splice(i,1);localStorage.setItem('gifts',JSON.stringify(gifts));show()}
+show();
+</script></body></html>
